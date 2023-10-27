@@ -55,18 +55,6 @@ public static void main (String[] args)
 	{ 
 	ATM_go a = new ATM_go(1000);
 	
-	//a.bal=500;
-	//a.get_balance();
-	
-	//a.get_balance();
-	/*a.Setdeposit(500);
-	a.get_balance();
-	a.setWithdraw(600);
-	a.setWithdraw(650);
-	a.Setdeposit(26000);
-	a.get_balance();
-	*/
-	
 	// Create an ATM object with an initial balance of $1000
 	int pin,confirmPin,num,repeater;
 	boolean result;
@@ -85,9 +73,7 @@ public static void main (String[] args)
 	}
 	while (pin!=confirmPin);
 	
-	
-	
-    while (isRunning) {
+   	while (isRunning) {
     	
         System.out.println("ATM Menu:");
         System.out.println("1. Check Balance");
