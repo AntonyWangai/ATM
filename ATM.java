@@ -1,11 +1,12 @@
 package ATM;
 import java.util.Scanner;
-class ATM_go
+class myATM
 {
 double bal;
-int passkey;
+int passkey,count;
+boolean confirmpin;
 
-public  ATM_go(double initialbal)
+public  myATM(double initialbal)
 {
 	bal=initialbal;
 	}
@@ -34,46 +35,52 @@ public void setWithdraw(double amount)
 public boolean mypin(int num)
 {
 	Scanner in = new Scanner(System.in);
-	System.out.println("Please enter your pin");
+	do
+	{
+	System.out.println("Please enter your pin to access your ATM");
 	passkey=in.nextInt();
 	if(num==passkey)
-
-		return true;
-				
+	{  confirmpin=true;
+		return confirmpin;
+	}			
 	else
-		return false;
+	{
+		System.out.println("Wrong Pin. Please try again!");
+		count++	;
+	}
 	
+	}
+	while(count<3);
+	return false;
 }
 
 
 
-
 }
+
+
 public class ATM
 {
 public static void main (String[] args)
 	{ 
-	ATM_go a = new ATM_go(1000);
 	
+	int pin = 1234;
+	
+	myATM a = new myATM(1000);
 	// Create an ATM object with an initial balance of $1000
-	int pin,confirmPin,num,repeater;
+	int num,repeater,count;
 	boolean result;
 	
 	Scanner scanner = new Scanner(System.in);
 	
 	boolean isRunning = true;
+	count=0;
 	
-	do
+	
+	if (a.mypin(pin))
 	{
-	System.out.println("Please create your pin");
-	pin = scanner.nextInt();
 	
-	System.out.println("Please confirm your pin");
-	confirmPin = scanner.nextInt();
-	}
-	while (pin!=confirmPin);
-	
-   	while (isRunning) {
+    while (isRunning) {
     	
         System.out.println("ATM Menu:");
         System.out.println("1. Check Balance");
@@ -87,56 +94,29 @@ public static void main (String[] args)
             case 1->
             {
             	
-            	result = a.mypin(pin);
-            	if (result)
-            		{
-            	
             	a.get_balance();
                 break;
             	}
             	
-            	else 
-            	{
-            		System.out.println("Wrong pin please try again");
-            		
-            	}
-            	
-            	
-            	
-            
-            	
-            }
 				case 2->
 				{
                	System.out.println("Enter the deposit amount: $");
                 double depositAmount = scanner.nextDouble();
-                result = a.mypin(pin);
-                if (result) 
-                {
-
+               
                 a.Setdeposit(depositAmount);
                 break;
                }
-               else 
-           		{System.out.println("Wrong pin please try again");
-           		}
-                
-				}
+              
             case 3->
             {
             	
             	System.out.println("Enter the withdrawal amount: $");
                 double withdrawalAmount = scanner.nextDouble();
-                result = a.mypin(pin);
-                if (result)
-            	{
+               
                 a.setWithdraw(withdrawalAmount);
                 break;
             	}
-            	else 
-            		{System.out.println("Wrong pin please try again");
-            		}
-            }
+            	
         	case 4->
         	{
         		isRunning = false;
@@ -151,6 +131,10 @@ public static void main (String[] args)
 		
 }
 	}
-}
-			
+	else
+	{
+		System.out.println("You have entered wrong pin maximum number of times. Your card has been blocked. To unblock, contact customer care.");
+	}
+	}
+}		
 
